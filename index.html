@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just One Question 💖</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Arial Black",sans-serif;
+}
+
+body{
+  height:100vh;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+/* floating hearts */
+.heart{
+  position:absolute;
+  font-size:22px;
+  animation:float 6s linear infinite;
+  opacity:0.8;
+}
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* pages */
+.page{display:none;padding:20px;}
+.page.active{display:block;}
+
+h1{
+  color:#fff;
+  text-shadow:2px 2px #ff3366;
+  margin-bottom:20px;
+}
+
+.btn{
+  padding:14px 22px;
+  margin:10px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  background:#ff3366;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+.btn:hover{transform:scale(1.1);}
+
+/* naughty NO */
+.no-btn{position:relative;}
+
+/* stickers */
+.sticker{
+  font-size:60px;
+  animation:bounce 1.5s infinite;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-15px);}
+}
+
+/* gifs */
+.gif{
+  width:140px;
+  margin:10px auto;
+  display:block;
+  border-radius:15px;
+}
+
+/* confetti */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:14px;
+  top:-10px;
+  animation:fall 3s linear forwards;
+  z-index:9999;
+}
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1>CAN I ASK YOU A QUESTION?</h1>
+  <button class="btn" onclick="goPage(2)">Yes 💌</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <h1>niaaa baby 💖</h1>
+  <p style="color:white;">Choose one 👀</p>
+  <br>
+  <button class="btn" onclick="askValentine()">Of course 😍</button>
+  <button class="btn" onclick="askValentine()">Tell me 😘</button>
+  <button class="btn" onclick="askValentine()">Go ahead 💕</button>
+  <button class="btn" onclick="askValentine()">Hmm… okay 🥰</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <h1>WILL YOU BE MY VALENTINE 💘</h1>
+  <div class="sticker">🐻💞</div>
+  <br>
+  <button class="btn" id="yesBtn">YES 💖</button>
+  <button class="btn no-btn" id="noBtn">NO 😜</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+  <h1>I KNEW YOU LOVED ME 💕<br>ILOVEYOUTOO &lt;3</h1>
+
+  <img class="gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  <img class="gif" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+  <img class="gif" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+
+  <div class="sticker">🐱🤗🐱</div>
+</div>
+
+<script>
+function goPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+}
+
+function askValentine(){
+  goPage(3);
+}
+
+/* naughty NO */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
+
+function moveNo(){
+  noBtn.style.position="absolute";
+  noBtn.style.left=Math.random()*70+"vw";
+  noBtn.style.top=Math.random()*70+"vh";
+}
+
+/* YES */
+document.getElementById("yesBtn").onclick=()=>{
+  confettiBlast();
+  goPage(4);
+};
+
+/* confetti */
+function confettiBlast(){
+  for(let i=0;i<120;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=["#ff0","#f0f","#0ff","#0f0","#f00","#00f"]
+      [Math.floor(Math.random()*6)];
+    c.style.animationDuration=Math.random()*2+2+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
+/* hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=Math.random()*20+15+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},400);
+</script>
+
+</body>
+</html>
